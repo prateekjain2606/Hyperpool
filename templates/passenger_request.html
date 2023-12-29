@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Ride Request</h1>
+
+<form method="POST" action="/get_quote_form">
+<p class="required">Pickup Pincode <br/> <input type="number" id="start_location" name="start_location" min=10000 max=99999 required> </p>
+<p class="required">Destination Pincode <br/><input type="number" id="end_location" name="end_location" min=10000 max=99999 required> </p>
+<input type="checkbox" name="fillDefault"> Use Default Preferences
+<p>Car Type <br/><input type="text" list="car_type" name="car_type">
+
+    <datalist id="car_type">
+      <option value="Mini">Mini</option>
+      <option value="Sedan">Sedan</option>
+      <option value="SUV">SUV</option>
+    </datalist></p>
+    <p class="required">Number of Passengers<br/> <input type="number" id="passenger_count" name="passenger_count" min=1 max=6 value=1 required></p>
+    <p class="required">Number of Bags <br/><input type="number" id="baggage" name="baggage" min=0 max=4 value=0 required></p>
+    <p class="required">Do you have special needs?<br/><input type="text" list="special_needs" name="special_needs" value="No" required>
+      <datalist id="special_needs">
+        <option value="Yes">
+        <option value="No">
+      </datalist></p>
+  <p><input type="submit" value="Get a quote"></p>
+</form>
+<script>
+  document.getElementById('end_location').addEventListener('input', function(){
+  var start = document.getElementById("start_location").value;
+  var end = document.getElementById("end_location").value;
+  if(start == end)
+  {
+    document.getElementById("end_location").value = "";
+    alert('Start and End location cannot be same');
+  } });
+  </script>
+<script>
+document.getElementsByName('car_type')[0].addEventListener('change', function(){
+var passenger = document.getElementById("passenger_count");
+var baggage = document.getElementById("baggage");
+var car = this.value
+if(car == "Mini")
+{
+  passenger.setAttribute('max', 3);
+  baggage.setAttribute('max', 2); 
+}
+if(car == "Sedan")
+{
+  passenger.setAttribute('max', 4); 
+  baggage.setAttribute('max', 3); 
+}
+if(car == "SUV")
+{
+  passenger.setAttribute('max', 6); 
+  baggage.setAttribute('max', 4); 
+} });
+</script>
+<div>
+  {% if error != '' %}
+  <div>{{error}}</div>
+  {% endif %}
+</div>
+{% endblock %}

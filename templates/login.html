@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="column is-4 is-offset-4">
+    <h3 class="title">Login to Hyperpool</h3>
+    <div class="box">
+        <form method="POST" action="/login_validation">
+            <div class="field">
+                <label>User ID</label>
+                <div class="control">
+                    <input class="input is-large" type="text" name="user_id" placeholder="Your User ID" autofocus="">
+                </div>
+            </div>
+            <br/>
+            <div class="field">
+                <label>Password</label>
+                <div class="control">
+                    <input class="input is-large" type="password" name="passwd" placeholder="Your Password">
+                </div>
+            </div>
+            <br/>
+            <div class="field">
+                <label class="checkbox">
+                    <input type="checkbox" name="isDriver">
+                    Login as a Driver
+                </label>
+            </div>
+            <br/>
+            <div class="field">
+                <label>Haven't signed up with us?<br/></label>
+                <a href="{{ url_for('signup') }}" class="navbar-item">
+                    Sign Up as a Passenger
+                </a>
+            </div>
+            <br/>
+            <button class="button is-block is-info is-large is-fullwidth">Login</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

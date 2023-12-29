@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="title">
+  Welcome, {{ full_name }}! 
+</h1>
+  <div class="column is-4 is-offset-4">
+    
+    <h3 class="title">Your Profile</h3>
+    <div class="box">
+        <form method="POST" action = "/passenger/profile/update">
+            <div class="field">
+                <label class="required">Full Name</label>
+                <div class="control">
+                    <input class="input" type="text" value = "{{ full_name }}" name="full_name" maxlength="49" pattern="[a-zA-Z\s]+" required>
+                </div>
+            </div>
+              <br/>
+            <div class="field">
+                <label class="required">User ID (read-only)</label>
+                <div class="control has-icons-left has-icons-right">
+                    <input class="input" type="text" value = "{{ user_id }}" name="user_id" minlength=6 maxlength=19 pattern="[a-zA-Z0-9]+" readonly required>
+                    <span class="icon is-small is-left">
+                    <i class="fas fa-user"></i>
+                    </span>
+                </div>
+            <!-- <p class="help is-success">This user_id is available</p> -->
+            </div>
+            <br/>
+            <div class="field">
+                <label class="required">Password</label>
+                <div class="control">
+                    <input class="input" type="password" value="{{ passwd }}" name="passwd" minlength=8 maxlength=19 required>
+                </div>
+            </div>
+            <br/>                
+            <div class="field">
+              <label class="label">Gender</label>
+              <div class="control">
+                  <label class="radio">
+                    {% if gender == "Male" %}
+                      <input type="radio" id="Male" value="Male" name="gender" checked>
+                      Male
+                    </label>
+                    <label class="radio">
+                      <input type="radio" id="Female" value="Female" name="gender">
+                      Female
+                    </label>
+                    <label class="radio">
+                      <input type="radio" id="Non-Binary" value="Non-Binary" name="gender">
+                      Non-Binary
+                    </label>
+                    {% else %}
+                      {% if gender == "Female" %}
+                        <input type="radio" id="Male" value="Male" name="gender" >
+                        Male
+                        </label>
+                      <label class="radio">
+                        <input type="radio" id="Female" value="Female" name="gender" checked>
+                        Female
+                      </label>
+                      <label class="radio">
+                        <input type="radio" id="Non-Binary" value="Non-Binary" name="gender">
+                        Non-Binary
+                      </label>
+                      {% else %}
+                        {% if gender == "Non-Binary" %}
+                          <input type="radio" id="Male" value="Male" name="gender" >
+                            Male
+                            </label>
+                          <label class="radio">
+                            <input type="radio" id="Female" value="Female" name="gender">
+                            Female
+                          </label>
+                          <label class="radio">
+                            <input type="radio" id="Non-Binary" value="Non-Binary" name="gender"checked>
+                            Non-Binary
+                          </label>
+                          {% else %}
+                            <input type="radio" id="Male" value="Male" name="gender" >
+                              Male
+                              </label>
+                            <label class="radio">
+                              <input type="radio" id="Female" value="Female" name="gender">
+                              Female
+                            </label>
+                            <label class="radio">
+                              <input type="radio" id="Non-Binary" value="Non-Binary" name="gender">
+                              Non-Binary
+                            </label>
+                        {% endif %}
+                      {% endif %}
+                    {% endif %}
+              </div>
+          </div>
+            <br/>
+            <div class="field">
+                <label class="required">Phone Number</label>
+                <div class="field is-expanded">
+                        <input class="input" type="tel" value="{{ phone }}" name="phone" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" required>
+                </div>
+            </div>
+            <br/>
+            <div class="field">
+                <label class="required">Wallet (in U.S.$)</label>
+                <div class="field is-expanded">
+                    <input type="number" step="0.01" name="wallet" value="{{ wallet }}" min="0" max="9999999" required>
+                </div>
+            </div>
+            <p> Default Car Type <br/>
+              <input type="text" list="default_car_type" name="default_car_type" value="{{default_car_type}}">
+                <datalist id="default_car_type">
+                  <option value="Mini">Mini</option>
+                  <option value="Sedan">Sedan</option>
+                  <option value="SUV">SUV</option>
+                </datalist></p>
+                <p class="required">Default Number of Passengers <br/><input type="number" id="default_passenger_count" name="default_passenger_count" min=1 max=6 value={{default_passenger_count}} required></p>
+                <p class="required">Default Baggage <br/><input type="number" id="default_baggage" name="default_baggage" min=0 max=4 value={{default_baggage}} required></p>
+                <p class="required">Default Special Needs <br/><input type="text" list="default_special_needs" name="default_special_needs" value={{default_special_needs}} required>
+                  <datalist id="default_special_needs">
+                    <option value="Yes">
+                    <option value="No">
+                  </datalist></p>            
+                <p>Home Location (Pincode) <br/><input type="number" id="home_location" name="home_location" min=10000 max=99999 value={{home_location}}> </p>
+                <p>Work Location (Pincode) <br/><input type="number" id="work_location" name="work_location" min=10000 max=99999 value={{work_location}}> </p>
+                  
+            <button class="button is-block is-info is-large is-fullwidth">Save Profile</button>
+        </form>
+    </div>
+</div>
+</h1>
+<script>
+  document.getElementsByName('default_car_type')[0].addEventListener('change', function(){
+  var passenger = document.getElementById("default_passenger_count");
+  var baggage = document.getElementById("default_baggage");
+  var car = this.value
+  if(car == "Mini")
+  {
+    passenger.setAttribute('max', 4);
+    baggage.setAttribute('max', 2); 
+  }
+  if(car == "Sedan")
+  {
+    passenger.setAttribute('max', 5); 
+    baggage.setAttribute('max', 3); 
+  }
+  if(car == "SUV")
+  {
+    passenger.setAttribute('max', 6); 
+    baggage.setAttribute('max', 4); 
+  } });
+</script>
+{% endblock %}

@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3> Current Location: {{ current_location }} &emsp;
+ Car Type: {{ car_type }} &emsp;
+Vehicle ID: {{ vehicle_id }}&emsp;
+ Seats Available: {{ seats_available }} &emsp;
+ Baggage Available: {{ baggage_available }} </h3>
+
+<h3> Seated Passengers: </h3>
+<table>
+    <tr>
+      <th>Passenger Name</th>
+      <th>Start Location</th>
+      <th>End Location</th>
+      <th>Passenger Count</th>
+      <th>Baggage</th>
+      <th>Time Requested</th>
+      <th>Special Needs?</th>
+      <th>Your Earnings</th>
+    </tr>
+    {% for seated_passenger in seated_passengers %}
+    <tr>
+      <td>{{seated_passenger['full_name']}}</td>
+      <td>{{seated_passenger['start_location']}}</td>
+      <td>{{seated_passenger['end_location']}}</td>
+      <td>{{seated_passenger['passenger_count']}}</td>
+      <td>{{seated_passenger['baggage']}}</td>
+      <td>{{seated_passenger['time_requested']}}</td>
+      <td>{{seated_passenger['special_needs']}}</td>
+      <td>{{seated_passenger['fare']}}</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+  <h3> Passengers to be Picked-Up: </h3>
+<table>
+    <tr>
+      <th>Passenger Name</th>
+      <th>Start Location</th>
+      <th>End Location</th>
+      <th>Passenger Count</th>
+      <th>Baggage</th>
+      <th>Time Requested</th>
+      <th>Special Needs?</th>
+      <th>Your Earnings</th>
+    </tr>
+    {% for pickup_passenger in pickup_passengers %}
+    <tr>
+      <td>{{pickup_passenger['full_name']}}</td>
+      <td>{{pickup_passenger['start_location']}}</td>
+      <td>{{pickup_passenger['end_location']}}</td>
+      <td>{{pickup_passenger['passenger_count']}}</td>
+      <td>{{pickup_passenger['baggage']}}</td>
+      <td>{{pickup_passenger['time_requested']}}</td>
+      <td>{{pickup_passenger['special_needs']}}</td>
+      <td>{{pickup_passenger['fare']}}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  <form method="POST" action="/choose_request">
+  <h3> Available Requests: </h3>
+  <table>
+      <tr>
+        <th>Passenger Name</th>
+        <th>Start Location</th>
+        <th>End Location</th>
+        <th>Passenger Count</th>
+        <th>Baggage</th>
+        <th>Time Requested</th>
+        <th>Special Needs?</th>
+        <th>Your Earnings</th>
+        <th>Approve Request?</th>
+      </tr>
+      {% for avail_passenger in avail_passengers %}
+      <tr>
+        <td>{{avail_passenger['full_name']}}</td>
+        <td>{{avail_passenger['start_location']}}</td>
+        <td>{{avail_passenger['end_location']}}</td>
+        <td>{{avail_passenger['passenger_count']}}</td>
+        <td>{{avail_passenger['baggage']}}</td>
+        <td>{{avail_passenger['time_requested']}}</td>
+        <td>{{avail_passenger['special_needs']}}</td>
+        <td>{{avail_passenger['fare']}}</td>
+        <td><input type="radio" id="user_id" value="{{avail_passenger['user_id']}}" name="user_id" required></td>
+      </tr>
+      {% endfor %}
+    </table>
+    <br/>
+    <button class="button is-block is-info is-large is-fullwidth">Choose</button>
+    <br/>
+</form>
+<form method="POST" action="/move_graph">
+    <br/>
+    <button class="button is-block is-info is-large is-fullwidth">Next Action</button>
+    <br/>
+</form>
+
+{% endblock %}

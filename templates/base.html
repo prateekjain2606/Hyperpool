@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Passenger Sign Up</title>
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"> -->
+</head>
+
+<body>
+    <section class="hero is-primary is-fullheight">
+        
+        <div class="hero-head">
+            <nav class="navbar">
+                <div class="container">
+                    
+                    <div id="navbarMenuHeroA" class="navbar-menu">
+                        <div class="navbar-end">
+                            {% if not session['user_id'] %}
+                            <a href="{{ url_for('index') }}" class="navbar-item">
+                                Home
+                            </a>
+                            &emsp;
+                            <a href="{{ url_for('login') }}" class="navbar-item">
+                                Login
+                            </a>
+                            &emsp;
+                            {% else %}
+                                {% if session['isDriver'] %}
+                                <a href="{{ url_for('profile_drivers') }}" class="navbar-item">
+                                    My Profile
+                                </a>
+                                &emsp;
+                                {% if session['active'] %}
+                                <a href="{{ url_for('driver_rides') }}" class="navbar-item">
+                                    Pick a Ride
+                                </a>
+                                &emsp;
+                                {% endif %}
+                                {% else %}
+                                <a href="{{ url_for('profile_passengers') }}" class="navbar-item">
+                                    My Profile
+                                </a>
+                                &emsp;
+                                <a href="{{ url_for('get_quote') }}" class="navbar-item">
+                                    Book a Ride
+                                </a>
+                                &emsp;
+                                {% endif %}
+                            <a href="{{ url_for('logout') }}" class="navbar-item">
+                                Logout
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div> <br/>
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                        <label class="{{ category }}"><i>{{ message }}</i></label>
+                        {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+                </div>
+            </nav>
+        </div>
+
+        <div class="hero-body">
+            <div class="container has-text-centered">
+               {% block content %}
+               {% endblock %}
+            </div>
+        </div>
+        <style>
+            .required:after {
+              content:" *";
+              color: red;
+            }
+            body{ 
+            font-size: 15pt;
+            font-family: arial;
+            }
+            
+            table, th, td {
+            border-spacing: 30px;
+            border: 1px solid;
+            border-collapse: collapse;
+            padding: 10px;
+            }
+            
+            .error {
+                color: red;
+            }
+
+            button {
+            font-size: 15pt;
+            font-family: arial;
+            }
+          </style>
+    </section>
+</body>
+
+</html>

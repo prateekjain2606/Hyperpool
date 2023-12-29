@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="title">
+  Welcome, {{ full_name }}! 
+</h1>
+  <div class="column is-4 is-offset-4">
+    
+    <h3 class="title">Your Profile</h3>
+    <div class="box">
+        <form method="POST" action = "/driver/profile/update">
+            <div class="field">
+                <label class="required">Full Name</label>
+                <div class="control">
+                    <input class="input" type="text" value = "{{ full_name }}" name="full_name" maxlength="49" pattern="[a-zA-Z\s]+" required>
+                </div>
+            </div>
+              <br/>
+            <div class="field">
+                <label class="required">User ID (read-only)</label>
+                <div class="control has-icons-left has-icons-right">
+                    <input class="input" type="text" value = "{{ user_id }}" name="user_id" minlength=6 maxlength=19 pattern="[a-zA-Z0-9]+" readonly required>
+                    <span class="icon is-small is-left">
+                    <i class="fas fa-user"></i>
+                    </span>
+                </div>
+            <!-- <p class="help is-success">This user_id is available</p> -->
+            </div>
+            <br/>
+            <div class="field">
+                <label class="required">Password</label>
+                <div class="control">
+                    <input class="input" type="password" value="{{ passwd }}" name="passwd" minlength=8 maxlength=19 required>
+                </div>
+            </div>
+            <br/>                
+            <div class="field">
+                <label class="label">Gender</label>
+                <div class="control">
+                    <label class="radio">
+                      {% if gender == "Male" %}
+                        <input type="radio" id="Male" value="Male" name="gender" checked>
+                        Male
+                      </label>
+                      <label class="radio">
+                        <input type="radio" id="Female" value="Female" name="gender">
+                        Female
+                      </label>
+                      <label class="radio">
+                        <input type="radio" id="Non-Binary" value="Non-Binary" name="gender">
+                        Non-Binary
+                      </label>
+                      {% else %}
+                        {% if gender == "Female" %}
+                          <input type="radio" id="Male" value="Male" name="gender" >
+                          Male
+                          </label>
+                        <label class="radio">
+                          <input type="radio" id="Female" value="Female" name="gender" checked>
+                          Female
+                        </label>
+                        <label class="radio">
+                          <input type="radio" id="Non-Binary" value="Non-Binary" name="gender">
+                          Non-Binary
+                        </label>
+                        {% else %}
+                          {% if gender == "Non-Binary" %}
+                            <input type="radio" id="Male" value="Male" name="gender" >
+                              Male
+                              </label>
+                            <label class="radio">
+                              <input type="radio" id="Female" value="Female" name="gender">
+                              Female
+                            </label>
+                            <label class="radio">
+                              <input type="radio" id="Non-Binary" value="Non-Binary" name="gender"checked>
+                              Non-Binary
+                            </label>
+                            {% else %}
+                              <input type="radio" id="Male" value="Male" name="gender" >
+                                Male
+                                </label>
+                              <label class="radio">
+                                <input type="radio" id="Female" value="Female" name="gender">
+                                Female
+                              </label>
+                              <label class="radio">
+                                <input type="radio" id="Non-Binary" value="Non-Binary" name="gender">
+                                Non-Binary
+                              </label>
+                          {% endif %}
+                        {% endif %}
+                      {% endif %}
+                </div>
+            </div>
+            <br/>
+            <div class="field">
+                <label class="required">Phone Number</label>
+                <div class="field is-expanded">
+                        <input class="input" type="tel" value="{{ phone }}" name="phone" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" required>
+                </div>
+            </div>
+            <br/>
+            <div class="field">
+                <label class="required">Wallet (in U.S.$)</label>
+                <div class="field is-expanded">
+                    <input type="number" step="0.01" name="wallet" value="{{ wallet }}" min="0" max="9999999" required>
+                </div>
+            </div>
+            <br/>
+            <div class="field">
+              <label class="required">Licence_ID</label>
+              <div class="control">
+                  <input class="input" type="text" value="{{ licence_id }}" name="licence_id" minlength="9" maxlength="9" required>
+              </div>
+            </div>
+            <br/> 
+            <div class="field">
+              <label class="required">Rating (read-only)</label>
+              <div class="control">
+                  <input class="input" type="number" value="{{ rating }}" name="rating" step="0.01" readonly required>
+              </div>
+            </div>
+            <br/> 
+            <div class="field">
+              <label class="required">Licence Expiry</label>
+              <div class="control">
+                  <input class="input" type="date" value="{{ licence_expiry }}" name="licence_expiry" required>
+              </div>
+            </div>
+            <br/> 
+            <button class="button is-block is-info is-large is-fullwidth">Save Profile</button>
+        </form>
+    </div>
+</div>
+</h1>
+<script>
+</script>
+{% endblock %}

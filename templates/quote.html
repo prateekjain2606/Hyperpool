@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <h1>Your Fare Will Be</h1>
+  <div>$ {{max_fare}}</div>
+
+  <h1>Your Estimated Wait Time Will Be</h1>
+  <div> {{estimated_wait_time}} minutes. </div>
+  <form method="GET" action="/get_quote">
+    <p><input type="submit" value="Discard Quote"></p>
+    </form>
+    <form method="POST" action="/place_request_form">
+        <p><input type="submit" value="Let's Go"></p>
+        </form>
+{% endblock %}

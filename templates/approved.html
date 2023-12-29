@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Your ride has been approved, Driver is on the way to pick you up</h1>
+  <div>Vehicle Number: {{car_no}}</div>
+  <div>Driver Name: {{driver_name}}</div>
+  <div>Driver Contact Number: {{driver_phone}}</div>
+  <form method="POST" action="/accepted">
+    <p><input type="submit" value="Refresh"></p>
+    </form>
+    
+{% endblock %}

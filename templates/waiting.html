@@ -1,0 +1,13 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<h3>Your request has been placed, Please keep checking status of your request by clicking on Refresh button</h3>
+    <form method="POST" action="/refresh">
+    <p><input type="submit" value="Refresh"></p>
+    </form>
+    <form method="POST" action="/cancel_request">
+      <p><input type="submit" value="Cancel Request"></p>
+    </form>
+    
+{% endblock %}

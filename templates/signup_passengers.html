@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="column is-4 is-offset-4">
+    
+    <h3 class="title">Sign Up as a Passenger</h3>
+    <div class="box">
+        <form method="POST" action="/signup">
+            <div class="field">
+                <label class="required">Full Name</label>
+                <div class="control">
+                    <input class="input" type="text" placeholder="e.g. Elon Musk" name="full_name" maxlength="49" pattern="[a-zA-Z\s]+" required>
+                </div>
+            </div>
+              <br/>
+            <div class="field">
+                <label class="required">User ID</label>
+                <div class="control has-icons-left has-icons-right">
+                    <input class="input" type="text" placeholder="e.g. em1234" name="user_id" minlength=6 maxlength=19 pattern="[a-zA-Z0-9]+" required>
+                    <span class="icon is-small is-left">
+                    <i class="fas fa-user"></i>
+                    </span>
+                </div>
+            <!-- <p class="help is-success">This user_id is available</p> -->
+            </div>
+            <br/>
+            <div class="field">
+                <label class="required">Password</label>
+                <div class="control">
+                    <input class="input" type="password" placeholder="Password" minlength=8 maxlength=19 name="passwd" required>
+                </div>
+            </div>
+            <br/>                
+            <div class="field">
+                <label class="required">Confirm Password</label>
+                <div class="control">
+                    <input class="input" type="password" placeholder="Confirm Password" minlength=8 name="confirm_passwd" required>
+                </div>
+            </div>
+            <br/>
+            <div class="field">
+                <label class="label">Gender</label>
+                <div class="control">
+                    <label class="radio">
+                        <input type="radio" id="Male" value="Male" name="gender">
+                        Male
+                      </label>
+                      <label class="radio">
+                        <input type="radio" id="Female" value="Female" name="gender">
+                        Female
+                      </label>
+                      <label class="radio">
+                        <input type="radio" id="Non-Binary" value="Non-Binary" name="gender">
+                        Non-Binary
+                      </label>
+                </div>
+            </div>
+            <br/>
+            <div class="field">
+                <label class="required">Phone Number</label>
+                <div class="field is-expanded">
+                        <input class="input" type="tel" placeholder="10-digit phone number" name="phone" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" required>
+                </div>
+            </div>
+            <br/>
+            <div class="field">
+                <label class="required">Wallet (in U.S.$)</label>
+                <div class="field is-expanded">
+                    <input type="number" min=0 step="0.01" name="wallet" placeholder="Dollar amount upto cents" min="0" max="9999999" required>
+                </div>
+            </div>
+            <p> Default Car Type <br/>
+                <input type="text" list="default_car_type" name="default_car_type" value="">
+                  <datalist id="default_car_type">
+                    <option value="Mini">Mini</option>
+                    <option value="Sedan">Sedan</option>
+                    <option value="SUV">SUV</option>
+                  </datalist></p>
+                  <p class="required">Default Number of Passengers <br/><input type="number" id="default_passenger_count" name="default_passenger_count" min=1 max=6 value=1 required></p>
+                  <p class="required">Default Baggage <br/><input type="number" id="default_baggage" name="default_baggage" min=0 max=4 value=0 required></p>
+                  <p class="required">Default Special Needs <br/><input type="text" list="default_special_needs" name="default_special_needs" value="No" required>
+                    <datalist id="default_special_needs">
+                      <option value="Yes">
+                      <option value="No">
+                    </datalist></p>
+            <p>Home Location (Pincode) <br/><input type="number" id="home_location" name="home_location" min=10000 max=99999> </p>
+            <p>Work Location (Pincode) <br/><input type="number" id="work_location" name="work_location" min=10000 max=99999> </p>
+                
+            <button class="button is-block is-info is-large is-fullwidth">Sign Up</button>
+        </form>
+    </div>
+</div>
+<script>
+    document.getElementsByName('default_car_type')[0].addEventListener('change', function(){
+    var passenger = document.getElementById("default_passenger_count");
+    var baggage = document.getElementById("default_baggage");
+    var car = this.value
+    if(car == "Mini")
+    {
+      passenger.setAttribute('max', 4);
+      baggage.setAttribute('max', 2); 
+    }
+    if(car == "Sedan")
+    {
+      passenger.setAttribute('max', 5); 
+      baggage.setAttribute('max', 3); 
+    }
+    if(car == "SUV")
+    {
+      passenger.setAttribute('max', 6); 
+      baggage.setAttribute('max', 4); 
+    } });
+</script>
+{% endblock %}
